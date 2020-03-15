@@ -31,4 +31,5 @@ export default class PicPreview extends Vue {
   object-fit cover
   transition all 0.3s
   transform translate3d(0, 0, 0)
+  -webkit-user-drag none
 </style>
