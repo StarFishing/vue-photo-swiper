@@ -9,6 +9,7 @@
 <script lang="ts">
 import { TouchMixin } from '../../mixins/touch'
 import { preventDefault } from '../../utils/dom/event'
+import { range } from '../../utils/format/number'
 import { Vue, Watch, Component, Prop, Mixins } from 'vue-property-decorator'
 @Component({
   components: {},
@@ -77,6 +78,10 @@ export default class Swiper extends Mixins(TouchMixin) {
     }
   }
 
+  get activeIndicator() {
+    return (this.active + this.count) % this.count
+  }
+
   @Watch('swipes')
   setInitializeSwipes() {
     this.initialize()
@@ -91,7 +96,7 @@ export default class Swiper extends Mixins(TouchMixin) {
     if (!this.touchable) return
     this.swiping = true
     this.touchStart(event)
-    this.correctPosition()
+    // this.correctPosition()
   }
 
   onTouchMove(event: TouchEvent) {
@@ -101,7 +106,7 @@ export default class Swiper extends Mixins(TouchMixin) {
 
     if (this.isCorrectDirection) {
       preventDefault(event, this.stopPropagation)
-      // this.move({ offset: this.delta });
+      this.move({ offset: this.delta })
     }
   }
 
@@ -110,17 +115,69 @@ export default class Swiper extends Mixins(TouchMixin) {
 
     if (this.delta && this.isCorrectDirection) {
       const offset = this.vertical ? this.offsetY : this.offsetX
-      // this.move({
-      //   pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
-      //   emitChange: true
-      // });
+      this.move({
+        pace: offset > 0 ? (this.delta > 0 ? -1 : 1) : 0,
+        emitChange: true,
+      })
     }
 
     this.swiping = false
   }
 
   correctPosition() {
-    // this.move({ pace: -this.count })
+    this.swiping = true
+
+    if (this.active <= -1) {
+      this.move({ pace: this.count })
+    }
+    this.move({ pace: -this.count })
+  }
+
+  minOffset() {
+    // const rect = this.$el.getBoundingClientRect();
+    let $el = this.$refs.swiper as HTMLElement
+    const rect = $el.getBoundingClientRect()
+    return (this.vertical ? rect.height : rect.width) - this.size * this.count
+  }
+
+  getTargetActive(pace: number) {
+    const { active, count } = this
+
+    if (pace) {
+      return range(active + pace, 0, count - 1)
+    }
+
+    return active
+  }
+
+  getTargetOffset(targetActive: number, offset: number) {
+    let currentPosition = targetActive * this.size
+
+    currentPosition = Math.min(currentPosition, -this.minOffset())
+
+    let targetOffset = Math.round(offset - currentPosition)
+
+    targetOffset = range(targetOffset, this.minOffset(), 0)
+
+    return targetOffset
+  }
+
+  move({ pace = 0, offset = 0, emitChange = false }) {
+    const { count, active, swipes, trackSize, minOffset } = this
+
+    if (count <= 1) {
+      return
+    }
+
+    const targetActive = this.getTargetActive(pace)
+    const targetOffset = this.getTargetOffset(targetActive, offset)
+
+    this.active = targetActive
+    this.offset = targetOffset
+
+    if (emitChange && targetActive !== active) {
+      this.$emit('change', this.activeIndicator)
+    }
   }
 
   initialize(active = this.initialSwipe) {

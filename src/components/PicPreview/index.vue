@@ -1,5 +1,5 @@
 <template>
-  <Swiper>
+  <Swiper @change="setActive" :initialSwipe="startPosition">
     <swiper-item v-for="(url, index) in images" :key="index">
       <img :src="url" alt="" class="pre-image-fit" />
     </swiper-item>
@@ -22,6 +22,19 @@ export default class PicPreview extends Vue {
 
   @Prop({ type: String })
   wrapper!: string // 用于过渡的归属元素查找
+
+  @Prop({ type: Number, default: 0 })
+  startPosition!: number
+  active = 0
+
+  setActive(active: number) {
+    // this.resetScale();
+
+    if (active !== this.active) {
+      this.active = active
+      this.$emit('change', active)
+    }
+  }
 }
 </script>
 
