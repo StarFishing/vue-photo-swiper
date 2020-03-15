@@ -1,6 +1,10 @@
 <template>
   <Swiper @change="setActive" :initialSwipe="startPosition">
-    <swiper-item v-for="(url, index) in images" :key="index">
+    <swiper-item
+      v-for="(url, index) in images"
+      :key="index"
+      :class="{ 'no-align': getElHeight(this) }"
+    >
       <img :src="url" alt="" class="pre-image-fit" />
     </swiper-item>
   </Swiper>
@@ -25,6 +29,14 @@ export default class PicPreview extends Vue {
 
   @Prop({ type: Number, default: 0 })
   startPosition!: number
+
+  // TODO 图片过高去除垂直居中属性
+  get getElHeight() {
+    return (event: any) => {
+      return true
+    }
+  }
+
   active = 0
 
   setActive(active: number) {
