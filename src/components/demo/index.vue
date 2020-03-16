@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content content-test">
     <div
       class="swiper-item"
       v-for="(url, index) in sourceList"
@@ -8,7 +8,12 @@
     >
       <img :src="url" alt="" class="image-fit" />
     </div>
-    <pic-preview :images="sourceList" wrapper="content"></pic-preview>
+    <pic-preview
+      :images="sourceList"
+      wrapper="content-test"
+      :visible="visible"
+      @close="handleClose"
+    ></pic-preview>
   </div>
 </template>
 
@@ -30,8 +35,14 @@ export default class Demo extends Vue {
     'https://i.loli.net/2020/03/15/f4LtqpC58vxwIsG.jpg',
     'https://i.loli.net/2020/03/15/5TnEMami4RewoNX.png',
   ]
+  visible = false
 
-  handlePreview(e: Event) {}
+  handlePreview(e: Event) {
+    this.visible = true
+  }
+  handleClose() {
+    this.visible = false
+  }
 }
 </script>
 

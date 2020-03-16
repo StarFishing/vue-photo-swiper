@@ -211,7 +211,7 @@ export default class Swiper extends Mixins(TouchMixin) {
 .pic-swiper
   position fixed
   transition all 0.3s
-  // display none
+  display none
   background black
   transform translate3d(0, 0, 0)
   overflow hidden
