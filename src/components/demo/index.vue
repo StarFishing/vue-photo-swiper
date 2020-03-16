@@ -4,7 +4,7 @@
       class="swiper-item"
       v-for="(url, index) in sourceList"
       :key="index"
-      @click="handlePreview"
+      @click="handlePreview(index)"
     >
       <img :src="url" alt="" class="image-fit" />
     </div>
@@ -13,6 +13,7 @@
       wrapper="content-test"
       :visible="visible"
       @close="handleClose"
+      :startPosition="startPosition"
     ></pic-preview>
   </div>
 </template>
@@ -36,9 +37,11 @@ export default class Demo extends Vue {
     'https://i.loli.net/2020/03/15/5TnEMami4RewoNX.png',
   ]
   visible = false
+  startPosition = 0
 
-  handlePreview(e: Event) {
+  handlePreview(index: number) {
     this.visible = true
+    this.startPosition = index
   }
   handleClose() {
     this.visible = false

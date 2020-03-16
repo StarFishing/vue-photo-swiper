@@ -4,6 +4,7 @@
     :initialSwipe="startPosition"
     :class="setSwiperVisible"
     ref="swiper"
+    @click="handleClose"
   >
     <swiper-item v-for="(url, index) in images" :key="index">
       <Images
@@ -14,7 +15,6 @@
         @touchmove.native="onImageTouchMove"
         @touchend.native="onImageTouchEnd"
         @touchcancel.native="onImageTouchEnd"
-        @click="handleClose"
       ></Images>
     </swiper-item>
   </Swiper>
@@ -23,7 +23,8 @@
 <script lang="ts">
 import { Vue, Watch, Component, Prop, Mixins } from 'vue-property-decorator'
 import { TouchMixin } from '../../mixins/touch'
-import { preventDefault } from '../../utils/dom/event'
+import { on, preventDefault } from '../../utils/dom/event'
+import { hasClass } from '../../utils/dom/style'
 import { range } from '../../utils/format/number'
 import Swiper from '../Swiper/index.vue'
 import SwiperItem from '../SwiperItem/index'
@@ -65,6 +66,7 @@ export default class PicPreview extends Mixins(TouchMixin) {
     if (this.visible) {
       this.$nextTick(() => {
         swiper.initialize()
+        this.setWrapperTouchInit()
       })
     }
     return this.visible ? 'visible-el' : ''
@@ -76,7 +78,7 @@ export default class PicPreview extends Mixins(TouchMixin) {
   active = 0
   moving = false
   zooming = false
-  doubleClickTimer = null
+  doubleClickTimer: any = null
 
   startMoveX = 0
   startMoveY = 0
@@ -84,6 +86,9 @@ export default class PicPreview extends Mixins(TouchMixin) {
   maxMoveY = 0
   startScale = 0
   startDistance = 0
+  shouldRender = true
+
+  touchStartTime!: Date
 
   // TODO 图片过高去除垂直居中属性
   get getElHeight() {
@@ -108,6 +113,51 @@ export default class PicPreview extends Mixins(TouchMixin) {
     }
 
     return style
+  }
+
+  getEndPointElement() {
+    let wrapper = document.querySelector('.' + this.wrapper)
+    let children: any = wrapper ? wrapper.children : []
+    for (let i = 0; i < children.length; i++) {
+      if (hasClass(children[i], 'swiper-item') && i === this.active) {
+        return children[i]
+      }
+    }
+    return undefined
+  }
+
+  setWrapperTouchInit() {
+    const Wrapper = this.$refs.swiper as any
+    console.log(Wrapper)
+    const swipe = Wrapper.$el
+    on(swipe, 'touchstart', this.onWrapperTouchStart)
+    on(swipe, 'touchmove', preventDefault)
+    on(swipe, 'touchend', this.onWrapperTouchEnd)
+    on(swipe, 'touchcancel', this.onWrapperTouchEnd)
+  }
+
+  onWrapperTouchStart() {
+    this.touchStartTime = new Date()
+  }
+
+  onWrapperTouchEnd(event: Event) {
+    preventDefault(event)
+    const deltaTime = (new Date() as any) - (this.touchStartTime as any)
+    const { offsetX = 0, offsetY = 0 } = (this.$refs.swipe as any) || {}
+
+    // prevent long tap to close component
+    if (deltaTime < 300 && offsetX < 10 && offsetY < 10) {
+      if (!this.doubleClickTimer) {
+        this.doubleClickTimer = setTimeout(() => {
+          // this.handleClose()
+          this.doubleClickTimer = null
+        }, 300)
+      } else {
+        clearTimeout(this.doubleClickTimer)
+        this.doubleClickTimer = null
+        this.toggleScale()
+      }
+    }
   }
 
   startMove(event: TouchEvent) {
@@ -201,6 +251,14 @@ export default class PicPreview extends Mixins(TouchMixin) {
     this.$emit('scale', { index: this.active, scale: value })
   }
 
+  toggleScale() {
+    const scale = this.scale > 1 ? 1 : 2
+
+    this.setScale(scale)
+    this.moveX = 0
+    this.moveY = 0
+  }
+
   resetScale() {
     this.setScale(1)
     this.moveX = 0
@@ -216,7 +274,7 @@ export default class PicPreview extends Mixins(TouchMixin) {
     }
   }
 
-  handleClose(event: Event) {
+  handleClose(event?: Event) {
     let swiper = this.$refs.swiper as any
     swiper.$el.className = swiper.$el.className.replace('visible-el', '')
     this.$emit('close', this.active)

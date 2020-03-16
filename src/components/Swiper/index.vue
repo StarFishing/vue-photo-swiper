@@ -91,7 +91,6 @@ export default class Swiper extends Mixins(TouchMixin) {
     // 当初始化图片的index变化进行重新计算
     this.initialize()
   }
-
   onTouchStart(event: TouchEvent) {
     if (!this.touchable) return
     this.swiping = true
@@ -101,9 +100,7 @@ export default class Swiper extends Mixins(TouchMixin) {
 
   onTouchMove(event: TouchEvent) {
     if (!this.touchable || !this.swiping) return
-
     this.touchMove(event)
-
     if (this.isCorrectDirection) {
       preventDefault(event, this.stopPropagation)
       this.move({ offset: this.delta })
