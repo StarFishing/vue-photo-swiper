@@ -1,50 +1,79 @@
 <template>
-  <div class="content content-test">
-    <div
-      class="swiper-item"
-      v-for="(url, index) in sourceList"
-      :key="index"
-      @click="handlePreview(index)"
-    >
-      <img :src="url" alt="" class="image-fit" />
+  <div>
+    <div class="content content-test gallery">
+      <div
+        class="swiper-item gallery-item"
+        v-for="(url, index) in images"
+        :key="index"
+        :data-size="url.w + 'x' + url.h"
+        @click="handlePreview(index)"
+      >
+        <img :src="url.src" alt="" class="image-fit" />
+      </div>
     </div>
-    <pic-preview
-      :images="sourceList"
-      wrapper="content-test"
-      :visible="visible"
+    <photo-swiper
+      :images="images"
       @close="handleClose"
-      :startPosition="startPosition"
-    ></pic-preview>
+      :pageIndex="{
+        position: 'center',
+      }"
+      :visible="visible"
+      :options="options"
+      :open-arrow="true"
+      gallerySelector="gallery"
+      gallerySelectorItem="gallery-item"
+    ></photo-swiper>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Watch, Component, Prop } from 'vue-property-decorator'
-import PicPreview from '../PicPreview/index.vue'
+import PhotoSwiper from '../PhotoSwiper/index.vue'
 @Component({
-  components: { PicPreview },
+  components: { PhotoSwiper },
 })
 export default class Demo extends Vue {
   sourceList: Array<String> = [
-    'https://p3.ssl.qhimgs1.com/sdr/400__/t016abf53727b771589.jpg',
-    'https://p2.ssl.qhimgs1.com/sdr/400__/t01f399940bcb70ab98.jpg',
-    'https://p2.ssl.qhimgs1.com/sdr/400__/t01d0e8abf8b56380cc.jpg',
-    'https://p1.ssl.qhimgs1.com/sdr/400__/t0170ce1479af19a1bb.jpg',
     'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJlbKw5aIY6PYAA0XnsktgwEAALG5QPtg4wADRe2915.jpg',
     'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJ1bKw5eIL0aKAAfnuubEbXEAALG5gAbjAoAB-fS604.jpg',
     'https://i.loli.net/2020/03/15/Y89BjAwOTxLWGtm.png',
     'https://i.loli.net/2020/03/15/f4LtqpC58vxwIsG.jpg',
     'https://i.loli.net/2020/03/15/5TnEMami4RewoNX.png',
   ]
+  images = [
+    {
+      src:
+        'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJlbKw5aIY6PYAA0XnsktgwEAALG5QPtg4wADRe2915.jpg',
+      w: 1920,
+      h: 1200,
+      title: 'Image Caption',
+    },
+    {
+      src:
+        'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJ1bKw5eIL0aKAAfnuubEbXEAALG5gAbjAoAB-fS604.jpg',
+      w: 1920,
+      h: 1200,
+    },
+    {
+      src: 'https://i.loli.net/2020/03/15/Y89BjAwOTxLWGtm.png',
+      w: 184,
+      h: 175,
+    },
+  ]
+
   visible = false
-  startPosition = 0
+  options = {
+    index: 0,
+  }
+
+  handleClose() {
+    this.visible = false
+    console.log('listen close')
+  }
 
   handlePreview(index: number) {
     this.visible = true
-    this.startPosition = index
-  }
-  handleClose() {
-    this.visible = false
+    // this.options.index = index
   }
 }
 </script>

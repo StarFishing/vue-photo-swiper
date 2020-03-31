@@ -4,7 +4,6 @@
     :initialSwipe="startPosition"
     :class="setSwiperVisible"
     ref="swiper"
-    @click="handleClose"
   >
     <swiper-item v-for="(url, index) in images" :key="index">
       <Images
@@ -128,7 +127,6 @@ export default class PicPreview extends Mixins(TouchMixin) {
 
   setWrapperTouchInit() {
     const Wrapper = this.$refs.swiper as any
-    console.log(Wrapper)
     const swipe = Wrapper.$el
     on(swipe, 'touchstart', this.onWrapperTouchStart)
     on(swipe, 'touchmove', preventDefault)
@@ -144,12 +142,10 @@ export default class PicPreview extends Mixins(TouchMixin) {
     preventDefault(event)
     const deltaTime = (new Date() as any) - (this.touchStartTime as any)
     const { offsetX = 0, offsetY = 0 } = (this.$refs.swipe as any) || {}
-
     // prevent long tap to close component
     if (deltaTime < 300 && offsetX < 10 && offsetY < 10) {
       if (!this.doubleClickTimer) {
         this.doubleClickTimer = setTimeout(() => {
-          // this.handleClose()
           this.doubleClickTimer = null
         }, 300)
       } else {
@@ -276,7 +272,7 @@ export default class PicPreview extends Mixins(TouchMixin) {
 
   handleClose(event?: Event) {
     let swiper = this.$refs.swiper as any
-    swiper.$el.className = swiper.$el.className.replace('visible-el', '')
+    // swiper.$el.className = swiper.$el.className.replace('visible-el', '')
     this.$emit('close', this.active)
   }
 }

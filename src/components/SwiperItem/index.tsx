@@ -22,7 +22,7 @@ export default class SwiperItem extends Vue {
       overflowY: 'scroll',
     }
     return (
-      <div class="pic-swiper-item" style={style}>
+      <div class="pic-swiper-item" style={style} {...{ on: this.$listeners }}>
         {this.$slots.default}
       </div>
     )
