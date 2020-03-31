@@ -185,7 +185,9 @@ export default class PhotoSwiper extends Vue {
 
     let eTarget = e.target || e.srcElement
     let clickedListItem = this._closest(eTarget, (el: HTMLElement) => {
-      return el.className.includes(self.gallerySelectorItem)
+      return el.className
+        ? el.className.includes(self.gallerySelectorItem)
+        : false
     })
 
     if (!clickedListItem) {
@@ -274,24 +276,16 @@ export default class PhotoSwiper extends Vue {
     if (isNaN(options.index)) {
       return
     }
+    // 可选配置
 
-    let radios = document.getElementsByName('gallery-style')
-    for (let i = 0, length = radios.length; i < length; i++) {
-      if ((radios[i] as any).checked) {
-        if (radios[i].id == 'radio-all-controls') {
-        } else if (radios[i].id == 'radio-minimal-black') {
-          options.mainClass = 'pswp--minimal--dark'
-          options.barsSize = { top: 0, bottom: 0 }
-          options.captionEl = false
-          options.fullscreenEl = false
-          options.shareEl = false
-          options.bgOpacity = 0.85
-          options.tapToClose = true
-          options.tapToToggleControls = false
-        }
-        break
-      }
-    }
+    // options.mainClass = 'pswp--minimal--dark'
+    // options.barsSize = { top: 0, bottom: 0 }
+    // options.captionEl = false
+    // options.fullscreenEl = false
+    // options.shareEl = false
+    // options.bgOpacity = 0.85
+    // options.tapToClose = true
+    // options.tapToToggleControls = false
 
     if (disableAnimation) {
       options.showAnimationDuration = 0
@@ -310,7 +304,7 @@ export default class PhotoSwiper extends Vue {
       useLargeImages = false,
       firstResize = true
 
-    let imageSrcWillChange: boolean
+    let imageSrcWillChange = false
     this.gallery.listen('beforeResize', () => {
       let dpiRatio = window.devicePixelRatio ? window.devicePixelRatio : 1
       dpiRatio = Math.min(dpiRatio, 2.5)
@@ -356,7 +350,7 @@ export default class PhotoSwiper extends Vue {
         item.h = item.m.h
       }
     })
-
+    this.gallery.listen('close', this.handleClose)
     this.gallery.init()
   }
 
@@ -368,23 +362,23 @@ export default class PhotoSwiper extends Vue {
       thumbnailEl,
       size,
       item
-    let elemntNode = el as HTMLElement
-    let elemnt: any
+    let elementNode = el as HTMLElement
+    let element: any
 
     for (let i = 0; i < numNodes; i++) {
-      elemnt = thumbElements[i]
+      element = thumbElements[i]
 
       // include only element nodes
-      if (elemnt.nodeType !== 1) {
+      if (element.nodeType !== 1) {
         continue
       }
 
-      childElements = (elemnt as HTMLElement).children
+      childElements = (element as HTMLElement).children
       // swiper-item || gallerySelectorItem
-      let dataSize = (elemnt as HTMLElement).getAttribute('data-size')
+      let dataSize = (element as HTMLElement).getAttribute('data-size')
       if (!dataSize) {
         throw new Error(
-          'need data-size but got null,please check the prop in the elemnt'
+          'need data-size but got null,please check the prop in the element'
         )
       }
       size = dataSize.split('x')
@@ -394,21 +388,21 @@ export default class PhotoSwiper extends Vue {
         src: childElements[0].getAttribute('src'),
         w: parseInt(size[0], 10),
         h: parseInt(size[1], 10),
-        author: elemnt.getAttribute('data-author'),
+        author: element.getAttribute('data-author'),
       } as any
 
-      item.el = elemnt // save link to element for getThumbBoundsFn
+      item.el = element // save link to element for getThumbBoundsFn
 
-      // if (childElements.length > 0) {
-      //   item.msrc = childElements[0].getAttribute('src') // thumbnail url
-      //   if (childElements.length > 1) {
-      //     item.title = childElements[1].innerHTML // caption (contents of figure)
-      //   }
-      // }
+      if (childElements.length > 0) {
+        item.msrc = childElements[0].getAttribute('src') // thumbnail url
+        if (childElements.length > 1) {
+          item.title = childElements[1].innerHTML // caption (contents of figure)
+        }
+      }
 
-      let mediumSrc = elemnt.getAttribute('data-med')
+      let mediumSrc = element.getAttribute('data-med')
       if (mediumSrc) {
-        size = elemnt.getAttribute('data-med-size').split('x')
+        size = element.getAttribute('data-med-size').split('x')
         // "medium-sized" image
         item.m = {
           src: mediumSrc,
