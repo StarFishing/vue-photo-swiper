@@ -5,7 +5,10 @@
         class="swiper-item gallery-item"
         v-for="(url, index) in images"
         :key="index"
+        :data-origin="url.src"
         :data-size="url.w + 'x' + url.h"
+        :data-med="url.src"
+        :data-med-size="url.w + 'x' + url.h"
         @click="handlePreview(index)"
       >
         <img :src="url.src" alt="" class="image-fit" />

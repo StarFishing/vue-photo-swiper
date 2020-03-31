@@ -385,7 +385,9 @@ export default class PhotoSwiper extends Vue {
 
       // create slide object
       item = {
-        src: childElements[0].getAttribute('src'),
+        src:
+          element.getAttribute('data-origin') ||
+          childElements[0].getAttribute('src'),
         w: parseInt(size[0], 10),
         h: parseInt(size[1], 10),
         author: element.getAttribute('data-author'),
@@ -393,13 +395,23 @@ export default class PhotoSwiper extends Vue {
 
       item.el = element // save link to element for getThumbBoundsFn
 
+      // Compatible with thumbnail animation
       if (childElements.length > 0) {
         item.msrc = childElements[0].getAttribute('src') // thumbnail url
-        if (childElements.length > 1) {
-          item.title = childElements[1].innerHTML // caption (contents of figure)
-        }
+        // if (childElements.length > 1) {
+        //   item.title = childElements[1].innerHTML // caption (contents of figure)
+        // }
+      } else {
+        // Compatible no wrapper
+        item.msrc = item.src
       }
-
+      // set origin src
+      item.o = {
+        src: item.src,
+        w: item.w,
+        h: item.h,
+      }
+      // set medium src
       let mediumSrc = element.getAttribute('data-med')
       if (mediumSrc) {
         size = element.getAttribute('data-med-size').split('x')
@@ -411,11 +423,6 @@ export default class PhotoSwiper extends Vue {
         }
       }
       // original image
-      item.o = {
-        src: item.src,
-        w: item.w,
-        h: item.h,
-      }
 
       items.push(item)
     }
