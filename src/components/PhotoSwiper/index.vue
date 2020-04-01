@@ -58,6 +58,9 @@
         <div class="pswp__caption">
           <div class="pswp__caption__center"></div>
         </div>
+        <div class="pswp__footer__bar">
+          <slot name="footerBar"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -438,4 +441,10 @@ export default class PhotoSwiper extends Vue {
 .pswp__counter
   right 0
   width 100%
+.pswp__footer__bar
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 44px;
 </style>

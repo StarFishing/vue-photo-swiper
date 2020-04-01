@@ -22,7 +22,6 @@
       }"
       :visible="visible"
       :options="options"
-      :open-arrow="true"
       gallerySelector="gallery"
       gallerySelectorItem="gallery-item"
     ></photo-swiper>
@@ -83,18 +82,13 @@ export default class Demo extends Vue {
 
 <style lang="stylus" scoped>
 .content
-  display grid
-  grid-row-gap 20px
-  grid-column-gap 20px
-  grid-template-columns repeat(3, auto)
-  grid-template-rows repeat(3, 200px)
+  display flex
 .swiper-item
-  border-radius 8px
+  width 200px
+  height 300px
   overflow hidden
-  background white
-  box-shadow -5px -5px 20px #fff, 5px 5px 20px #babecc
   .image-fit
     width 100%
-    height 100%
+    height auto
     object-fit cover
 </style>
