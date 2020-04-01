@@ -35,13 +35,6 @@ import PhotoSwiper from '../PhotoSwiper/index.vue'
   components: { PhotoSwiper },
 })
 export default class Demo extends Vue {
-  sourceList: Array<String> = [
-    'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJlbKw5aIY6PYAA0XnsktgwEAALG5QPtg4wADRe2915.jpg',
-    'https://desk-fd.zol-img.com.cn/g5/M00/02/00/ChMkJ1bKw5eIL0aKAAfnuubEbXEAALG5gAbjAoAB-fS604.jpg',
-    'https://i.loli.net/2020/03/15/Y89BjAwOTxLWGtm.png',
-    'https://i.loli.net/2020/03/15/f4LtqpC58vxwIsG.jpg',
-    'https://i.loli.net/2020/03/15/5TnEMami4RewoNX.png',
-  ]
   images = [
     {
       src:

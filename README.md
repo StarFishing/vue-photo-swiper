@@ -1,24 +1,9 @@
-# 基于Vue cli4+typescript搭建的项目基础模板
+# vue-photo-swiper
 
-## Project setup
-```
-npm install
-```
+它是一款基于 typescript&&cli3 的图片预览组件，可以进行左右切换图片预览，更好的是它还可以从点击元素进行无缝过渡，使得图片预览看起来个更加平滑，组件一览与 photoswiper,所以兼容了他所有的可配置项，并进行了一些功能的改造。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 使用方式
 
-### Compiles and minifies for production
 ```
-npm run build
+npm install vue-photo-swiper
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -126,8 +126,8 @@ export default class PhotoSwiper extends Vue {
       if (!this.pageIndex) {
         return { display: 'none' }
       }
-      return ''
     }
+    return ''
   }
 
   @Watch('visible')

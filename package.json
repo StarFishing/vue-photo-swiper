@@ -1,15 +1,34 @@
 {
   "name": "vue-photo-swiper",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "keywords": [
+    "vue",
+    "swiper",
+    "preview",
+    "photo-swiper"
+  ],
+  "author": {
+    "name": "xiaoxin",
+    "email": "starfishingxiao@gamil.com"
+  },
+  "license": "MIT",
+  "description": "Vue photoSwiper base ts and photoswiper",
+  "main": "dist/VuePhotoSwiper.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/starfishing/vue-photo-swiper.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-lib": "vue-cli-service build --target lib --name VuePhotoSwiper ./src/components/PhotoSwiper/index.js"
   },
   "dependencies": {
     "@types/photoswipe": "^4.1.0",
     "core-js": "^3.4.3",
+    "html-webpack-plugin": "^4.0.0-beta.14",
     "photoswipe": "^4.1.3",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
