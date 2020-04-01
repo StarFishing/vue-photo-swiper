@@ -17,6 +17,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+/lib
 # close in npm publish
 # /src
 # vue.config.js

@@ -15,4 +15,6 @@ export default class App extends Vue {}
 <style lang="stylus">
 body
   margin 0
+#app
+  background: linear-gradient(to left bottom, hsl(248, 100%, 85%) 0%,hsl(104, 100%, 85%) 100%);
 </style>
