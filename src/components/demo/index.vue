@@ -30,9 +30,11 @@
 
 <script lang="ts">
 import { Vue, Watch, Component, Prop } from 'vue-property-decorator'
-import PhotoSwiper from '../PhotoSwiper/index.vue'
+import PhotoSwiper from '../index'
+Vue.use(PhotoSwiper)
+
 @Component({
-  components: { PhotoSwiper },
+  components: {},
 })
 export default class Demo extends Vue {
   images = [

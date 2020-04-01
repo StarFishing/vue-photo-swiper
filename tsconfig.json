@@ -25,7 +25,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/declarations/**/*",
-    "src/components/PhotoSwiper/index.js"
+    "src/components/PhotoSwiper/index.ts"
   ],
   "exclude": ["node_modules"]
 }

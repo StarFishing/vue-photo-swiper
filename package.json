@@ -1,6 +1,6 @@
 {
-  "name": "@vue/photo-swiper",
-  "version": "0.1.0",
+  "name": "plugin-photo-swiper",
+  "version": "0.1.2",
   "keywords": [
     "vue",
     "swiper",
@@ -13,45 +13,45 @@
   },
   "license": "MIT",
   "description": "Vue photoSwiper base ts and photoswiper",
-  "main": "dist/VuePhotoSwiper.umd.min.js",
+  "main": "lib/photo-swiper.umd.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/starfishing/vue-photo-swiper.git"
+    "url": "https://github.com/StarFishing/vue-photo-swiper.git"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-lib": "vue-cli-service build --target lib --name VuePhotoSwiper ./src/components/PhotoSwiper/index.js"
+    "build-lib": "vue-cli-service build --target lib --name photo-swiper --dest lib src/components/index.ts"
   },
   "dependencies": {
     "@types/photoswipe": "^4.1.0",
-    "core-js": "^3.4.3",
+    "core-js": "^3.6.4",
     "photoswipe": "^4.1.3",
     "vue": "^2.6.10",
-    "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.3.0"
+    "vue-class-component": "^7.2.3",
+    "vue-property-decorator": "^8.4.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.0",
-    "@vue/cli-plugin-eslint": "^4.1.0",
-    "@vue/cli-plugin-router": "^4.1.0",
-    "@vue/cli-plugin-typescript": "^4.1.0",
-    "@vue/cli-plugin-vuex": "^4.1.0",
-    "@vue/cli-service": "^4.1.0",
+    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-plugin-eslint": "^4.2.3",
+    "@vue/cli-plugin-router": "^4.2.3",
+    "@vue/cli-plugin-typescript": "^4.2.3",
+    "@vue/cli-plugin-vuex": "^4.2.3",
+    "@vue/cli-service": "^4.2.3",
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/eslint-config-typescript": "^4.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "html-webpack-plugin": "^4.0.4",
     "prettier": "^1.19.1",
     "script-ext-html-webpack-plugin": "^2.1.4",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
-    "svg-sprite-loader": "^4.1.6",
+    "svg-sprite-loader": "^4.2.1",
     "typescript": "~3.5.3",
-    "vue-template-compiler": "^2.6.10",
-    "html-webpack-plugin": "^4.0.0-beta.14"
+    "vue-template-compiler": "^2.6.10"
   },
   "engines": {
     "node": "v10.17.0"

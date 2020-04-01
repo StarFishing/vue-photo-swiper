@@ -17,3 +17,12 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+# close in npm publish
+# /src
+# vue.config.js
+# babel.config.js
+# tsconfig.json
+# .prettierignore
+# .prettierrc
+# /dist
+# /components

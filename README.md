@@ -5,5 +5,5 @@
 ## 使用方式
 
 ```
-npm install vue-photo-swiper
+npm install plugin-photo-swiper
 ```
