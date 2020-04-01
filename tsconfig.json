@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "declaration": true,
     "baseUrl": ".",
     "types": ["webpack-env"],
     "paths": {
@@ -23,7 +24,8 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx",
-    "src/declarations/**/*"
+    "src/declarations/**/*",
+    "src/components/PhotoSwiper/index.js"
   ],
   "exclude": ["node_modules"]
 }
