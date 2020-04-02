@@ -5,7 +5,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = 'plugin-photo-swiper' // page title
+const name = 'plugin photo swiper' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -23,7 +23,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: './',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -51,7 +51,7 @@ module.exports = {
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
     // it can be accessed in index.html to inject the correct title.
-    name: name,
+    name,
     resolve: {
       // modules: [path.resolve('node_modules')], // 对于需要引入的模块去node_modules下找
       // extensions: ['.js', '.css', '.json', '.vue', '.ts'], // 配置扩展名，使用场景如下
@@ -60,17 +60,18 @@ module.exports = {
       },
     },
   },
-  // chainWebpack(config) {
-  //   // set preserveWhitespace
-  //   config.module
-  //     .rule('vue')
-  //     .use('vue-loader')
-  //     .loader('vue-loader')
-  //     .tap(options => {
-  //       options.compilerOptions.preserveWhitespace = true
-  //       return options
-  //     })
-  //     .end()
+  chainWebpack(config) {
+    // set preserveWhitespace
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap(options => {
+        options.compilerOptions.preserveWhitespace = true
+        return options
+      })
+      .end()
+  },
 
   //   config
   //     // https://webpack.js.org/configuration/devtool/#development

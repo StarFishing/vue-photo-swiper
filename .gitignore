@@ -25,6 +25,6 @@ deploy.sh
 # babel.config.js
 # tsconfig.json
 # .prettierignore
-# .prettierrc
+# .prettierrc.js
 /dist
 # /components
