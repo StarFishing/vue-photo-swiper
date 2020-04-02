@@ -16,7 +16,7 @@ import PhotoSwiper from 'plugin-photo-swiper'
 Vue.use(PhotoSwiper)
 ```
 
-Css 文件的引入是必要的，否则将不会有预期的效果，你也可以自定义样式。如果你也是typescript开发环境，为了避免报错，记得安装@types/plugin-photo-swiper
+Css 文件的引入是必要的，否则将不会有预期的效果，你也可以自定义样式
 
 在模板文件中我们只需要给一些必要的配置项
 
@@ -35,6 +35,4 @@ Css 文件的引入是必要的，否则将不会有预期的效果，你也可�
 
 ![image-20200401221701784.png](https://i.loli.net/2020/04/01/LwJNqVQcuf7HEMg.png)
 
-更多配置可以参考文档
-
-配置文档
+查看示例：https://starfishing.github.io/plugin-site/

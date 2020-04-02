@@ -1,6 +1,6 @@
 {
   "name": "plugin-photo-swiper",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "keywords": [
     "vue",
     "swiper",
@@ -19,6 +19,7 @@
     "type": "git",
     "url": "https://github.com/StarFishing/vue-photo-swiper.git"
   },
+  "homepage": "https://starfishing.github.io/plugin-site/",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

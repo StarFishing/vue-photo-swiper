@@ -18,6 +18,7 @@ yarn-error.log*
 *.sln
 *.sw?
 /lib
+deploy.sh
 # close in npm publish
 # /src
 # vue.config.js
@@ -25,5 +26,5 @@ yarn-error.log*
 # tsconfig.json
 # .prettierignore
 # .prettierrc
-# /dist
+/dist
 # /components
