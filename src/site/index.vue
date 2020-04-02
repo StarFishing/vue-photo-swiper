@@ -5,7 +5,7 @@
     <p style="color:#666">
       一款支持图片缩放归位的预览插件。插件基于Vue实现，使用TypeScript语法，所以兼顾了主流的开发环境，也提供了丰富的api和配置项供您选择。插件依赖于photoswiper,所以支持他所有的可配置项和特性。
       👉
-      <a href="https://photoswipe.com/documentation/options.html"
+      <a href="https://starfishing.github.io/vue-photo-swiper-docs/"
          style="text-decoration: none;color: white;">
         文档地址
       </a>
@@ -58,10 +58,10 @@
 
 <script lang="ts">
 import { Vue, Watch, Component, Prop } from 'vue-property-decorator'
-import PhotoSwiper from '../components/PhotoSwiper/index.vue'
+// import PhotoSwiper from '../components/PhotoSwiper/index.vue'
 
 @Component({
-  components: {PhotoSwiper},
+  components: {},
 })
 export default class Demo extends Vue {
   // imagesFirst = [
