@@ -78,7 +78,7 @@ type PAGEINDEX = {
 }
 
 @Component({
-  components: {},
+  name: 'PhotoSwiper',
 })
 export default class PhotoSwiper extends Vue {
   @Prop({ required: false })

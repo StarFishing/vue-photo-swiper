@@ -1,7 +1,8 @@
 import PhotoSwiper from './index.vue'
 // @ts-ignore
 PhotoSwiper.install = function(Vue: any) {
-  Vue.component(PhotoSwiper.name, PhotoSwiper)
+  console.log(PhotoSwiper)
+  Vue.component('PhotoSwiper', PhotoSwiper)
 }
 
 export default PhotoSwiper
