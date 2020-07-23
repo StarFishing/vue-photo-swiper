@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Vue, Watch, Component, Prop } from 'vue-property-decorator'
-import Demo from '@/site/index.vue'
+import Demo from '@/exmples/index.vue'
 @Component({
   components: { Demo },
 })
