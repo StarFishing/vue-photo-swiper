@@ -23,11 +23,11 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: './',
+  publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: false,
+  productionSourceMap: true,
   devServer: {
     port: port,
     open: true,
@@ -35,18 +35,6 @@ module.exports = {
       warnings: false,
       errors: true,
     },
-    // proxy: {
-    //   // change xxx-api/login => mock/login
-    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
-    //   [process.env.VUE_APP_BASE_API]: {
-    //     target: `http://127.0.0.1:${port}/mock`,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       ['^' + process.env.VUE_APP_BASE_API]: ''
-    //     }
-    //   }
-    // },
-    // after: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -72,43 +60,4 @@ module.exports = {
       })
       .end()
   },
-
-  //   config
-  //     // https://webpack.js.org/configuration/devtool/#development
-  //     .when(process.env.NODE_ENV === 'development', config =>
-  //       config.devtool('cheap-source-map')
-  //     )
-
-  //   config.when(process.env.NODE_ENV !== 'development', config => {
-  //     config
-  //       .plugin('ScriptExtHtmlWebpackPlugin')
-  //       .after('html')
-  //       .use('script-ext-html-webpack-plugin', [
-  //         {
-  //           // `runtime` must same as runtimeChunk name. default is `runtime`
-  //           inline: /runtime\..*\.js$/,
-  //         },
-  //       ])
-  //       .end()
-  //     config.optimization.splitChunks({
-  //       chunks: 'all',
-  //       cacheGroups: {
-  //         libs: {
-  //           name: 'chunk-libs',
-  //           test: /[\\/]node_modules[\\/]/,
-  //           priority: 10,
-  //           chunks: 'initial', // only package third parties that are initially dependent
-  //         },
-  //         commons: {
-  //           name: 'chunk-commons',
-  //           test: resolve('src/components'), // can customize your rules
-  //           minChunks: 3, //  minimum common number
-  //           priority: 5,
-  //           reuseExistingChunk: true,
-  //         },
-  //       },
-  //     })
-  //     config.optimization.runtimeChunk('single')
-  //   })
-  // },
 }
